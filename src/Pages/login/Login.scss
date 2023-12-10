@@ -1,0 +1,38 @@
+.loginPage {
+    background-image: url('./footer-bg.jpg');
+    background-size: cover;
+    width: 100%;
+    height: 830px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .login-form{
+        right: 50%;
+        left: 35%;
+        width: 350px;
+        height: 440px;
+        background: transparent;
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid rgba(255, 255, 255, 0.619);
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        padding: 20px;
+    }
+    Form.Item{
+        width: 250px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+    }
+    .login-form-forgot, .log_check, .register{
+        color: white;
+    }
+}
+
+
