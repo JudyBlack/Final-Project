@@ -1,0 +1,9 @@
+.movies{
+    display: flex;
+    flex-wrap: wrap;
+    .movies_section{
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 40px;
+    }
+}
