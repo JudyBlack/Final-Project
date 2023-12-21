@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&family=Montserrat:wght@200&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  background-color: #0f0f0f;
+  color: #fff;
+}
+
+a {
+  text-decoration: none;
+  color: unset;
+}
+
+button, input {
+  outline: 0;
+}
+
+ul {
+  list-style-type: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+iframe {
+  border: 0;
+}
+
+.container {
+  margin: auto;
+  max-width: 1660px;
+}
+
+.section {
+  padding: 0 2rem;
+}
+
+.section_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}/*# sourceMappingURL=App.css.map */
