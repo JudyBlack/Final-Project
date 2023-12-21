@@ -7,6 +7,12 @@
     height: 480px;
     margin-left: 1.6 rem;
     padding: 5px;
+    transition: transform 0.3s ease;
+    &:hover,
+    &:active {
+        transform: scale(1.1); // Scale up the card on hover or click
+        position: relative;
+    }
     .card_img {
         width: 250px;
         height: 400px;

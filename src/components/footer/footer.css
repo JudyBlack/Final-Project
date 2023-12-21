@@ -1,0 +1,30 @@
+.footer_container {
+  background-image: url("./footer-bg.jpg");
+  width: 100%;
+  height: 560px;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.footer_container .first_part {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.footer_container .first_part a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.footer_container .first_part a img {
+  width: 80px;
+  height: 80px;
+}
+.footer_container .first_part a span {
+  font-size: 30px;
+  font-weight: 800;
+}/*# sourceMappingURL=footer.css.map */

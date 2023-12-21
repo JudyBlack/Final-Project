@@ -4,5 +4,27 @@
     height: 560px;
     background-size: cover;
     display: flex;
-    
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .first_part{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        a{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            img{
+            width: 80px;
+            height: 80px;
+            }
+            span{
+                font-size: 30px;
+                font-weight: 800;
+            }
+        }
+    }
 }

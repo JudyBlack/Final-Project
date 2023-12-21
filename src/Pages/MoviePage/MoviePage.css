@@ -1,4 +1,34 @@
 .movies {
   display: flex;
   flex-wrap: wrap;
+}
+.movies .movies_first_section {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgb(0, 0, 0)), url("./wallpaper(captain_marvel).jpg");
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 30px;
+}
+.movies .movies_second_section {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 40px;
+  align-items: center;
+  justify-content: center;
+}
+.movies .load_more_btn {
+  background-color: red;
+  color: white;
+  width: 120px;
+  height: 45px;
+  margin-top: 40px;
+  margin-bottom: 80px;
+  border-radius: 12px;
+  font-size: 16px;
+  border: 2px red;
 }/*# sourceMappingURL=MoviePage.css.map */

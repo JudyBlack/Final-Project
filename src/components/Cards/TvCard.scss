@@ -7,10 +7,15 @@
     height: 480px;
     margin-left: 1.6 rem;
     padding: 5px;
+    transition: transform 0.3s ease;
     .tv_card_img {
         width: 250px;
         height: 400px;
     }
+    &:hover,
+    &:active {
+        transform: scale(1.1); // Scale up the card on hover or click
+        position: relative;}
     .tv_card_details{
         width: 250px;
         height: 130px;
