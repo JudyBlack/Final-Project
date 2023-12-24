@@ -1,0 +1,21 @@
+.details_container{
+    display: flex;
+    flex-wrap: wrap;
+    
+    .details_img_part{
+        width: 230px;
+        height: 345px;
+        img{
+            width: 230px;
+            height: 345px;
+        }
+    }
+    .details{
+        display: flex;
+        width: 700px;
+    }
+    .cast{
+        display: flex;
+        flex-direction: column;
+    }
+}
