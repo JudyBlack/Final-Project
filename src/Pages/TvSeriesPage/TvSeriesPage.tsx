@@ -17,6 +17,7 @@ type RequestType = {
   poster_path: string
   vote_average: number,
   vote_count: number,
+  number_of_episodes: number
 }
 
 
@@ -84,6 +85,7 @@ return(
       poster_path = {serie.poster_path}
       vote_average = {serie.vote_average}
       vote_count = {serie.vote_count}
+      number_of_episodes = {serie.number_of_episodes}
       />})}
 
       <button onClick={() => loadMore()} className='load_more_btn'>More +</button>
