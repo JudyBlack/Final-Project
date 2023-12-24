@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { IMovieCardProps } from '../../Cards/MovieCard';
 import './MovieDetails.scss'
-import { getAuth } from 'firebase/auth';
 import { MovieCastCarousel } from '../../Carousels/MovieCastCarousel';
 
 interface Params {
@@ -72,7 +71,7 @@ const MovieDetails: React.FC = () => {
           <p><b>Release Date:</b> {movie.release_date}</p>
           <p><b>Language:</b> {movie.original_language}</p>
           <p><b>Runtime:</b> {movie.runtime} min</p>
-          {/* <p><b>Genre:</b> {movie.genres.map((genre) => <span key={genre.id}> {genre.name}</span>)}</p> */}
+          <p><b>Genre:</b> {movie.genres.map((genre) => <span key={genre.id}> {genre.name}</span>)}</p> 
           <p><b>Overview:</b> {movie.overview}</p>
         
         <div className='cast'>
