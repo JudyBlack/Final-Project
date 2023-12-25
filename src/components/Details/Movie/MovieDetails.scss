@@ -1,6 +1,6 @@
 .details_container{
     display: flex;
-    position: absolute;
+    position: relative;
     top: 65px;
     justify-content: flex-start;
     gap: 20px;
@@ -8,15 +8,36 @@
     margin-right: 45px;
     margin-left: 45px;
     .details_img_part{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
         img{
             width: 230px;
             height: 345px;
+        }
+        h2{
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        button{
+            width: 180px;
+            height: 30px;
+            background-color: red;
+            color: white;
+            border: 2px solid rgb(25, 18, 18);
+            border-radius: 5px;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;;
         }
     }
     }
     .details{
         display: flex;
         flex-direction: column;
+        gap: 10px;
         
         .cast{
             display: flex;
@@ -27,8 +48,19 @@
                 height: 150px;
             }
         }
+    .videos_section{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        ul{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
     }
-    .footer{
+    .footer_section{
         position: relative;
-        top: 180px;
+        
     }
+    }
+
