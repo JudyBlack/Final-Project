@@ -2,24 +2,9 @@ import "./Login.scss";
 import React from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { initializeApp } from "firebase/app";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAYRhM0hRpdGiaLP6Sj6FbThFhB2hiARYM",
-  authDomain: "film-website-bc42f.firebaseapp.com",
-  projectId: "film-website-bc42f",
-  storageBucket: "film-website-bc42f.appspot.com",
-  messagingSenderId: "779630627693",
-  appId: "1:779630627693:web:d3db16fa516dabe3e46864",
-};
-
-
-const app = initializeApp(firebaseConfig);
-
-const auth = getAuth();
 
 const Login: React.FC = () => {
   const onFinish = (values: any) => {
@@ -28,24 +13,32 @@ const Login: React.FC = () => {
 
   const a = useLocation();
 
-  const navigate = useNavigate()
-
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
+  const [wrong, setWrong] = React.useState<string>("none");
 
-  function login() {
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        navigate('/moviePage')
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+  const navigate = useNavigate();
+
+  async function Login(values: {email: string, password: string}) {
+    try {
+      const response = await fetch('https://devedu-az.com:7001/api/movies/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
       });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Login successful:", data);
+        navigate('/');
+      } else {
+        setWrong('block');
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -84,7 +77,7 @@ const Login: React.FC = () => {
         </Form.Item>
 
         <Form.Item>
-          <Form.Item name="remember" valuePropName="checked" noStyle>
+          <Form.Item name="remember" valuePropName="checked">
             <Checkbox className="log_check">Remember me</Checkbox>
             <a className="login-form-forgot" href="">
               Forgot password?
@@ -92,12 +85,14 @@ const Login: React.FC = () => {
           </Form.Item>
         </Form.Item>
 
+        <p style={{color: 'red', display: wrong}}>Email or password is wrong</p>
+
         <Form.Item>
           <Button
             type="primary"
             htmlType="submit"
             className="login-form-button"
-            onClick={() => login()}
+            onClick={() => Login({email: email, password: password})}
           >
             Log in
           </Button>
@@ -106,7 +101,7 @@ const Login: React.FC = () => {
             to="/register"
             className={a.pathname === "/register" ? "active" : "non-active"}
           >
-            Register now
+            <span style={{color: 'white'}}>Register Now!</span>
           </Link>
         </Form.Item>
       </Form>

@@ -17,7 +17,11 @@ export interface TvCardProps{
   vote_average: number,
   vote_count: number,
   number_of_episodes: number
-
+  genres: {
+    map(arg0: (genre: any) => import("react/jsx-runtime").JSX.Element): React.ReactNode;
+    id: number;
+    name: string;
+  }
 }
 
 export const TvCard: React.FC<TvCardProps> = (props) => {

@@ -71,45 +71,45 @@ const MoviePage = () => {
       });
   }
 
-  if (!movies) {
-    return <div>Loading...</div>;
-  }
-
   console.log(movies);
   return (
     <div className="movies">
       <div className="movies_first_section">
         <p>Wellcome To The Movies Universe</p>
       </div>
-
-      <div className="movies_second_section">
-        {movies.map((movie) => {
-          console.log("movie", movie);
-          return (
-            <MovieCard
-              adult={movie.adult}
-              backdrop_path={movie.backdrop_path}
-              genre_ids={movie.genre_ids}
-              id={movie.id}
-              original_language={movie.original_language}
-              original_title={movie.original_title}
-              overview={movie.overview}
-              popularity={movie.popularity}
-              poster_path={movie.poster_path}
-              release_date={movie.release_date}
-              title={movie.title}
-              video={movie.video}
-              vote_average={movie.vote_average}
-              vote_count={movie.vote_count}
-              runtime={movie.runtime}
-              genres={movie.genres}
-            />
-          );
-        })}
-        <button onClick={() => loadMore()} className="load_more_btn">
-          More +
-        </button>
-      </div>
+        {!movies.length ? (
+          <div>Loading...</div>
+        ) : (
+          <div className="movies_second_section">
+          {movies.map((movie) => {
+            console.log("movie", movie);
+            return (
+              <MovieCard
+                adult={movie.adult}
+                backdrop_path={movie.backdrop_path}
+                genre_ids={movie.genre_ids}
+                id={movie.id}
+                original_language={movie.original_language}
+                original_title={movie.original_title}
+                overview={movie.overview}
+                popularity={movie.popularity}
+                poster_path={movie.poster_path}
+                release_date={movie.release_date}
+                title={movie.title}
+                video={movie.video}
+                vote_average={movie.vote_average}
+                vote_count={movie.vote_count}
+                runtime={movie.runtime}
+                genres={movie.genres}
+              />
+            );
+          })}
+          <button onClick={() => loadMore()} className="load_more_btn">
+            More +
+          </button>
+        </div>
+        )}
+      
       <Footer />
     </div>
   );

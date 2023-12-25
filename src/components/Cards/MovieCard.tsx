@@ -3,8 +3,6 @@ import "./MovieCard.scss"
 import { Link } from 'react-router-dom';
 import MoviePage from '../../Pages/MoviePage/MoviePage';
 
-
-
 export interface IMovieCardProps{
   adult: boolean,
   backdrop_path: string,
@@ -28,10 +26,6 @@ export interface IMovieCardProps{
   }
 }
 
-
-
-
-
 export const MovieCard: React.FC<IMovieCardProps> = (props) => {
 
   const API_IMG = 'https://image.tmdb.org/t/p/w500'
@@ -48,6 +42,5 @@ export const MovieCard: React.FC<IMovieCardProps> = (props) => {
       </div>
       </Link>
     </div>
-
   )
 }

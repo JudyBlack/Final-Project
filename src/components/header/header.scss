@@ -8,6 +8,7 @@
     font-size: 20px;
     font-weight: 700;
     position: fixed;
+    z-index: 1;
 
     .nav_logo_input_part{
         display: flex;
@@ -63,6 +64,7 @@
     font-size: 20px;
     font-weight: 700;
     position: fixed;
+    z-index: 1;
     background-color: rgba($color: #000000, $alpha: 0.8);
 
     

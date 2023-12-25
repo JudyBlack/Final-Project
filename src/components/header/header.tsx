@@ -25,9 +25,10 @@ const Header = () => {
     return (
         <div className={navbar ? "navbar_active" : "navbar"}>
             <div className="nav_logo_input_part">
-                <div className="logo_part">
-                    <img src={logo} alt="" />
-                    <span>FILM</span>
+                <div>
+                    <a href="/" className="logo_part"><img src={logo} alt="" />
+                        <span>FILM</span>
+                    </a>
                 </div>
                 <div className="nav_input_part">
                     <SearchEngine />
@@ -37,6 +38,7 @@ const Header = () => {
                 <Link to="/" className={a.pathname === '/' ? "active" : 'non-active'}>Home</Link>
                 <Link to="moviePage" className={a.pathname === '/moviePage' ? "active" : 'non-active'}>Movies</Link>
                 <Link to="tv_series" className={a.pathname === '/tv_series' ? "active" : 'non-active'}>TV Series</Link>
+                {/* <Link to="watch_list" className={a.pathname === '/WatchList' ? "active" : 'non-active'}>Watch List</Link> */}
                 <Link to="login" className={a.pathname === '/login' ? "active" : 'non-active'}>Login</Link>
             </div>  
         </div>

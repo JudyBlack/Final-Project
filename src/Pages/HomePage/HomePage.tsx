@@ -1,96 +1,79 @@
+import HomePageCarousel from '../../components/Carousels/MovieCarousel'
+import UpcomingMoviesCarousel from '../../components/Carousels/UpcomingMoviesCarousel'
+import TopRatedMoviesCarousel from '../../components/Carousels/TopRatedMoviesCarousel'
+import PopularMoviesCarousel from '../../components/Carousels/PopularMoviesCarousel'
+import OnTheAirMoviesCarousel from '../../components/Carousels/OnTheAirMoviesCarousel'
+import Footer from '../../components/footer/footer'
+import UpcomingTVSeriesCarousel from '../../components/Carousels/UpcomingTvSeriesCarousel'
+import TopRatedTVSeriesCarousel from '../../components/Carousels/TopRatedTvSeriesCarousel'
+import PopularTVSeriesCarousel from '../../components/Carousels/PopularTvSeriesCarousel'
+import OnTheAirTVSeriesCarousel from '../../components/Carousels/OnTheAirTvSeriesCarousel'
+import './HomePage.scss'
+import { Divider } from 'antd';
+import TVCarousel from '../../components/Carousels/TvCaraousel'
 
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { initializeApp } from "firebase/app";
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Carousel } from "antd";
-import { useParams } from "react-router-dom";
-import { CarouselComponent } from '../../components/Carousels/HomePageCarousel';
-
-interface Params {
-  id: number;
-  [key: number]: string | undefined;
-}
-
-export type GenreType = {
-    id: number,
-    name: string
-  }
-  export type RequestType = {
-    adult: boolean;
-    backdrop_path: string;
-    genre_ids: object;
-    id: string;
-    original_language: string;
-    original_title: string;
-    overview: string;
-    popularity: number;
-    poster_path: string;
-    release_date: string;
-    title: string;
-    video: boolean;
-    vote_average: number;
-    vote_count: number;
-    runtime: number;
-    genres: any;
-  };
+export default function HomePage() {
   
-  export function HomePage() {
-    const [movies, setMovies] = useState<RequestType[]>([]);
-    const [page, setPage] = useState<number>(1);
-
-    const API_URL = "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&sort_by=popularity.desc&page=" +
-        page;
-
-    useEffect(() => {
-        fetch(API_URL, {
-            method: "get",
-            headers: new Headers({
-                Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiY2MxNzEyMGEzODVjMDg4MjBmNTdhNzRiOTdlZWY1MyIsInN1YiI6IjY1NjcxOWQzYThiMmNhMDEyYzE0YTNkYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.saenLC8stW1rjaDOCPE3UbdesCA12cXV3YQGEMEYf_4",
-            }),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setMovies(data.results);
-                setPage(page + 1);
-            });
-    }, []);
-
-
-    console.log(movies);
-    return (
-        <div className="movies">
-            <div className="movies_first_section">
-                <p>Wellcome To The Movies Universe</p>
-            </div>
-
-            <div className="movies_second_section">
-                {movies.map((movie) => {
-                    console.log("movie", movie);
-                    return (
-                        <CarouselComponent
-                            adult={movie.adult}
-                            backdrop_path={movie.backdrop_path}
-                            genre_ids={movie.genre_ids}
-                            id={movie.id}
-                            original_language={movie.original_language}
-                            original_title={movie.original_title}
-                            overview={movie.overview}
-                            popularity={movie.popularity}
-                            poster_path={movie.poster_path}
-                            release_date={movie.release_date}
-                            title={movie.title}
-                            video={movie.video}
-                            vote_average={movie.vote_average}
-                            vote_count={movie.vote_count}
-                            runtime={movie.runtime}
-                            genres={movie.genres} />
-                    );
-                })}
-                
-            </div>
-
+  return (
+    <div className='homepage_container'>
+      <div className='container_first_section'>
+        <h1>Wellcome To The Vidi Film Universe</h1>
+        <span>Get Millions of Movies and TV Shows With One Click</span>
+      </div>
+      
+      <div className='carousels'>
+        <div>
+          <h2>Upcoming Movies:</h2>
+          <UpcomingMoviesCarousel />
         </div>
-    );
+        <Divider style={{ borderColor: 'red' , width: '50px'}} />
+        <div>
+          <h2>Top Rated Movies:</h2>
+          <TopRatedMoviesCarousel />
+        </div>
+        <Divider style={{ borderColor: 'red' , width: '50px'}} />
+        <div>
+          <h2>Popular Movies:</h2>
+          <PopularMoviesCarousel /> 
+        </div>
+        <Divider style={{ borderColor: 'red' , width: '50px'}} />
+        <div>        
+          <h2>On The Air Movies:</h2>
+          <OnTheAirMoviesCarousel />
+        </div>
+        <Divider style={{ borderColor: 'red' , width: '50px'}} />
+        <div>
+          <HomePageCarousel />
+        </div>
+        <Divider style={{ borderColor: 'red' , width: '50px'}} />
+        <div>        
+          <h2>Upcoming Tv Series:</h2>
+          <UpcomingTVSeriesCarousel />
+        </div>
+        <Divider style={{ borderColor: 'red' , width: '50px'}} />
+        <div>        
+          <h2>Top Rated Tv Series:</h2>
+          <TopRatedTVSeriesCarousel />
+        </div>
+        <Divider style={{ borderColor: 'red' , width: '50px'}} />
+        <div>        
+          <h2>Popular Tv Series:</h2>
+          <PopularTVSeriesCarousel />
+        </div>
+        <Divider style={{ borderColor: 'red' , width: '50px'}} />
+        <div>        
+          <h2>On The Air Tv Series:</h2>
+          <OnTheAirTVSeriesCarousel />
+        </div>
+        <Divider style={{ borderColor: 'red' , width: '50px'}} />
+        <div>
+          <TVCarousel />
+        </div>
+      </div>
+      <div className='footer_section'>
+        <Footer />
+      </div>
+    </div>
+
+  )
 }
-  

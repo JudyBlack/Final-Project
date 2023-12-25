@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { IMovieCardProps } from '../../Cards/MovieCard';
+import { MovieCastCarousel } from '../../Carousels/CastCarousels/MovieCastCarousel';
+import YouTube from 'react-youtube';
 import './MovieDetails.scss'
-import { getAuth } from 'firebase/auth';
-import { CastCarousel } from '../../Carousels/CastCarousel';
+import Footer from '../../footer/footer';
 
 interface Params {
-  id: number;
-  [key: number]: string | undefined;
+  id: string;
 }
 
 interface IActor {
@@ -17,88 +17,104 @@ interface IActor {
   profile_path: string | null;
 }
 
+interface Video {
+  id: string;
+  key: string;
+  name: string;
+  site: string;
+  type: string; 
+}
+
 const MovieDetails: React.FC = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState<IMovieCardProps | null>(null);
   const [cast, setCast] = useState<IActor[]>([]);
-
-  // const firebaseConfig = {
-  //   apiKey: "AIzaSyAYRhM0hRpdGiaLP6Sj6FbThFhB2hiARYM",
-  //   authDomain: "film-website-bc42f.firebaseapp.com",
-  //   projectId: "film-website-bc42f",
-  //   storageBucket: "film-website-bc42f.appspot.com",
-  //   messagingSenderId: "779630627693",
-  //   appId: "1:779630627693:web:d3db16fa516dabe3e46864"
-  // };
-  
-  // // Initialize Firebase
-  // const app = initializeApp(firebaseConfig);
-  
-  // const auth = getAuth();
-
-  // const navigate = useNavigate();
+  const [videos, setVideos] = useState<Video[]>([]);
 
   useEffect(() => {
+    const fetchMovieDetails = async () => {
+      const movieUrl = `https://api.themoviedb.org/3/movie/${id}?api_key=bcc17120a385c08820f57a74b97eef53&language=en-US`;
+      const creditsUrl = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=bcc17120a385c08820f57a74b97eef53`;
+      const videosUrl = `https://api.themoviedb.org/3/movie/${id}/videos?api_key=bcc17120a385c08820f57a74b97eef53`;
 
-    // if(auth.currentUser === null) {
-    //   navigate('/login')
-    // } else {
-      const fetchMovieDetails = async () => {
-        const apiUrl = `https://api.themoviedb.org/3/movie/${id}?api_key=bcc17120a385c08820f57a74b97eef53&language=en-US`;
-        const creditsApiUrl = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=bcc17120a385c08820f57a74b97eef53`;
-        try {
-          const [movieResponse, creditsResponse] = await Promise.all([
-            fetch(apiUrl),
-            fetch(creditsApiUrl),
-          ]);
-  
-          if (!movieResponse.ok || !creditsResponse.ok) {
-            throw new Error('An error occurred while fetching data.');
-          }
-  
-          const movieData = await movieResponse.json();
-          const castData = await creditsResponse.json();
-  
-          setMovie(movieData);
-          setCast(castData.cast);
+      try {
+        const [movieResponse, creditsResponse, videosResponse] = await Promise.all([
+          fetch(movieUrl),
+          fetch(creditsUrl),
+          fetch(videosUrl),
+        ]);
 
-          console.log(movieData)
-
-        } catch (error) {
-          console.error(error);
+        if (!movieResponse.ok || !creditsResponse.ok || !videosResponse.ok) {
+          throw new Error('An error occurred while fetching data.');
         }
-      };
-  
-      fetchMovieDetails();
-    // }
+
+        const movieData = await movieResponse.json();
+        const castData = await creditsResponse.json();
+        const videosData = await videosResponse.json();
+
+        setMovie(movieData);
+        setCast(castData.cast);
+
+        const trailerVideos = videosData.results.filter((video: Video) =>
+        video.name.toLowerCase().includes('trailer')
+        );
+        setVideos(trailerVideos);
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchMovieDetails();
   }, [id]);
 
   if (!movie) {
     return <div>Loading...</div>;
   }
 
-  const API_IMG = 'https://image.tmdb.org/t/p/w500'
+  const API_IMG = 'https://image.tmdb.org/t/p/w500';
 
   return (
     <div>
       <div className='details_container'>
         <div className='details_img_part'>
           <img src={API_IMG + movie.poster_path} alt="" />
+          
         </div>
         <div className='details'>
-          <h2>{movie.title}</h2>
+          <h2>{movie.title} </h2>
+          {/* <button>Add To Watchlist</button> */}
           <p><b>Release Date:</b> {movie.release_date}</p>
           <p><b>Language:</b> {movie.original_language}</p>
+          <p><b>Vote Average:</b> {movie.vote_average}</p>
           <p><b>Runtime:</b> {movie.runtime} min</p>
-          {/* <p><b>Genre:</b> {movie.genres.map((genre) => <span key={genre.id}> {genre.name}</span>)}</p> */}
+          <p><b>Genre:</b> {movie.genres.map((genre) => <span key={genre.id}> {genre.name}</span>)}</p>
           <p><b>Overview:</b> {movie.overview}</p>
-        
-        <div className='cast'>
-            <h3>Cast:</h3> 
-            <CastCarousel />
+          <div>
+          <p><b>Cast:</b></p>
+          <MovieCastCarousel />
           </div>
-      </div>  
-      </div>  
+
+          {videos.length > 0 && (
+            <div className='videos_section'>
+              <h3>Videos:</h3>
+              <ul>
+                {videos.map((video) => (
+                  <li key={video.id}>
+                    <p>{video.name}</p>
+                    <YouTube videoId={video.key} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+        </div>
+        
+          <Footer />
+        
+      </div>
+      
     </div>
   );
 };

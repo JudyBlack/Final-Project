@@ -1,51 +1,58 @@
 import "./Login.scss";
 import React from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input } from "antd";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { initializeApp } from "firebase/app";
+import { Button, Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAYRhM0hRpdGiaLP6Sj6FbThFhB2hiARYM",
-  authDomain: "film-website-bc42f.firebaseapp.com",
-  projectId: "film-website-bc42f",
-  storageBucket: "film-website-bc42f.appspot.com",
-  messagingSenderId: "779630627693",
-  appId: "1:779630627693:web:d3db16fa516dabe3e46864",
-};
-
-
-const app = initializeApp(firebaseConfig);
-
-const auth = getAuth();
-
 const Register: React.FC = () => {
-  const onFinish = (values: any) => {
+  const navigate = useNavigate();
+
+  const onFinish = async (values: any) => {
     console.log("Received values of form: ", values);
   };
-
-  const navigate = useNavigate();
 
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
   const [repeat, setRepeat] = React.useState<string>("");
+  const [nickname, setNickname] = React.useState<string>("");
+  const [phone, setPhone] = React.useState<string>("");
+  const [gender, setGender] = React.useState<string>("");
 
-  function register() {
-    if (password === repeat) {
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed up
-          const user = userCredential.user;
-          navigate("/login")
-          // ...
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // ..
-        });
-    } else {console.log(password + " " + repeat)}
+  const [wrong, setWrong] = React.useState<string>('none');
+
+  async function register(values: {
+    email: string;
+    password: string;
+    nickname: string;
+    phone: string;
+    gender: string;
+  }) {
+    try {
+      if (repeat === password) {
+        const response = await fetch(
+          "https://devedu-az.com:7001/api/movies/register",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values),
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Register successful:", data);
+          navigate("/");
+        } else {
+          console.error("Register failed");
+        }
+      } else {
+        setWrong('block')
+      }
+    } catch (error) {
+      console.error("Error during register:", error);
+    }
   }
 
   return (
@@ -84,17 +91,65 @@ const Register: React.FC = () => {
         </Form.Item>
         <Form.Item
           name="repeat"
-          rules={[{ required: true, message: "Please input your Password again!" }]}
+          rules={[
+            { required: true, message: "Please input your Password again!" },
+          ]}
         >
           <Input
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
-            placeholder="Password"
+            placeholder="Repeat Password Again"
             onChange={(event) => {
               setRepeat(event.target.value);
             }}
           />
         </Form.Item>
+
+        <Form.Item
+          name="nickname"
+          rules={[{ required: true, message: "Please input your nickname!" }]}
+        >
+          <Input
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            type="text"
+            placeholder="Nickname"
+            onChange={(event) => {
+              setNickname(event.target.value);
+            }}
+          />
+        </Form.Item>
+
+        <Form.Item
+          name="phone"
+          rules={[
+            { required: true, message: "Please input your phone number!" },
+          ]}
+        >
+          <Input
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            type="text"
+            placeholder="Phone number"
+            onChange={(event) => {
+              setPhone(event.target.value);
+            }}
+          />
+        </Form.Item>
+
+        <Form.Item
+          name="gender"
+          rules={[{ required: true, message: "Please input your gender!" }]}
+        >
+          <Input
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            type="text"
+            placeholder="Gender"
+            onChange={(event) => {
+              setGender(event.target.value);
+            }}
+          />
+        </Form.Item>
+
+        <p style={{color: 'red', display: wrong}}>Passwords are not same</p>
 
         <Form.Item>
           <Button
@@ -102,7 +157,13 @@ const Register: React.FC = () => {
             htmlType="submit"
             className="login-form-button"
             onClick={() => {
-              register();
+              register({
+                email: email,
+                password: password,
+                nickname: nickname,
+                phone: phone,
+                gender: gender,
+              });
             }}
           >
             Register

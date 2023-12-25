@@ -18,6 +18,7 @@ type RequestType = {
   vote_average: number,
   vote_count: number,
   number_of_episodes: number
+  genres: any
 }
 
 
@@ -86,6 +87,7 @@ return(
       vote_average = {serie.vote_average}
       vote_count = {serie.vote_count}
       number_of_episodes = {serie.number_of_episodes}
+      genres = {serie.genres}
       />})}
 
       <button onClick={() => loadMore()} className='load_more_btn'>More +</button>
