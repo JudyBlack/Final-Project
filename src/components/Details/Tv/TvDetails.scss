@@ -13,9 +13,44 @@
     .details{
         display: flex;
         width: 700px;
+        h2{
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        button{
+            width: 180px;
+            height: 30px;
+            background-color: red;
+            color: white;
+            border: 2px solid rgb(25, 18, 18);
+            border-radius: 5px;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;;
+        }
+        .videos_section{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            ul{
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
     }
     .cast{
         display: flex;
         flex-direction: column;
     }
+}
+
+.addWatch{
+    width: 200px;
+    height: 100px;
+    background-color: red;
+    color: white;
+    border: 2px solid rgb(25, 18, 18);
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;;
 }
