@@ -93,7 +93,7 @@ const TvSeriesDetails: React.FC = () => {
           <p><b>Language:</b> {tvSeries.original_language}</p>
           <p><b>Vote Average:</b> {tvSeries.vote_average}</p>
           <p><b>Episodes:</b> {tvSeries.number_of_episodes}</p>
-          <p><b>Genre:</b> {tvSeries.genres.map((genre) => <span key={genre.id}> {genre.name}</span>)}</p>
+          <p><b>Genre:</b> {tvSeries.genres.map((genre: { id: React.Key | null | undefined; name: string | number | bigint | boolean | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<string | number | bigint | boolean | React.ReactPortal | React.ReactElement<unknown, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined> | null | undefined; }) => <span key={genre.id}> {genre.name}</span>)}</p>
           <p><b>Overview:</b> {tvSeries.overview}</p>
 
           <div className='cast'>

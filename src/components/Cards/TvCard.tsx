@@ -2,23 +2,26 @@ import React from 'react'
 import './TvCard.scss'
 import { Link } from 'react-router-dom'
 
-export interface TvCardProps{
-  backdrop_path: string,
-  first_air_date: string,
-  genre_ids: Array<2>,
-  id: number,
-  name: string,
-  origin_country: Array<1>
-  original_language: string,
-  original_name: string,
-  overview: string,
-  popularity: number,
-  poster_path: string
-  vote_average: number,
-  vote_count: number,
-  number_of_episodes: number
 
-}
+export interface TvCardProps {
+    adult: boolean;
+    genres: any[];
+    backdrop_path: string;
+    first_air_date: string;
+    genre_ids: number[];
+    id: number;
+    name: string;
+    origin_country: string[];
+    original_language: string;
+    original_name: string;
+    overview: string;
+    popularity: number;
+    poster_path: string;
+    vote_average: number;
+    vote_count: number;
+    number_of_episodes?: number;
+  }
+  
 
 export const TvCard: React.FC<TvCardProps> = (props) => {
   const API_IMG = 'https://image.tmdb.org/t/p/w500'
