@@ -6,7 +6,7 @@ import Header from './components/header/header';
 import Footer from './components/footer/footer';
 import HomePage from './Pages/HomePage/HomePage';
 import MoviePage from './Pages/MoviePage/MoviePage';
-import TvSeriesPage from './Pages/TvSeriesPage/TvSeriesPage';
+import { TvSeriesPage } from './Pages/TvSeriesPage/TvSeriesPage';
 import Login from './Pages/login/Login';
 import { BrowserRouter } from 'react-router-dom';
 import MovieDetails from './components/Details/Movie/MovieDetails';
